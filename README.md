@@ -17,7 +17,7 @@ Some additional IDE-like functionality for Clojure development using
 
 ## Configuration
 
-```vi
+```vim
 let g:cider_no_maps=1 " Disable built-in mappings
 
 " Setup visualmode bindings yourself, to some keys which don't interact
