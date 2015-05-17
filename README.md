@@ -15,6 +15,16 @@ Some additional IDE-like functionality for Clojure development using
 - Code formatting (uses [cljfmt](https://github.com/weavejester/cljfmt))
   - `cff` (current form), `cf{motion}`, `cF` (current file)
 
+## Configuration
+
+```vi
+let g:cider_no_maps=1 " Disable built-in mappings
+
+" Setup visualmode bindings yourself, to some keys which don't interact
+" with e.g. change command
+autocmd FileType clojure xmap <buffer> f <Plug>CiderFormat
+```
+
 ## TODO
 
 - Test utilities
