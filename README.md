@@ -16,3 +16,9 @@ Some additional IDE-like functionality for Clojure development using
 - Code reloading
 - Undefine var
 - Inspecting, tracing, debugging?
+
+# License
+
+Copyright (C) 2015 Juho Teperi
+
+Distributed under the MIT License.
