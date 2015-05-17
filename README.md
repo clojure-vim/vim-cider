@@ -1,6 +1,11 @@
 # cider.vim
 
-Requires [fireplace.vim](https://github.com/tpope/vim-fireplace).
+Requires [fireplace.vim](https://github.com/tpope/vim-fireplace) and cider-nrepl middleware:
+```clj
+{:user {:plugins [[cider/cider-nrepl "0.9.0-SNAPSHOT"]]}}
+```
+
+Cider-nrepl takes care of all other dependencies so you don't need to depend e.g. on cljfmt.
 
 Some additional IDE-like functionality for Clojure development using
 [cider-nrepl](https://github.com/clojure-emacs/cider-nrepl).
