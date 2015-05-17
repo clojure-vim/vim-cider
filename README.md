@@ -27,10 +27,15 @@ autocmd FileType clojure xmap <buffer> f <Plug>CiderFormat
 
 ## TODO
 
-- Test utilities
-- Code reloading
-- Undefine var
-- Inspecting, tracing, debugging?
+- Cider-nrepl
+  - Test utilities
+  - Code reloading
+  - Undefine var
+  - Inspecting, tracing, debugging?
+- Refactor-nrepl (https://github.com/clojure-emacs/refactor-nrepl)
+  - Rename symbol
+  - Clean ns form
+  - Resolve-missing
 
 # License
 
