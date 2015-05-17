@@ -1,0 +1,46 @@
+*cider.txt* IDE-like functionality for Clojure
+
+Author: Juho Teperi <https://github.com/Deraen>
+License: MIT
+
+                                                *cider*
+This plugins requires <https://github.com/tpope/vim-fireplace> and
+<https://github.com/clojure-emacs/cider-nrepl>.
+
+FEATURES                                        *cider-features*
+
+Code formatting |cider-cf|
+
+DOCUMENTATION                                   *cider-documentation*
+
+                                                *cider-no-maps*
+g:cider_no_maps         Set this option to true to disable built-in maps.
+
+                                                *cider-cf*
+cf{motion}              Format the code indicated by {motion}.
+                        Use <Plug>CiderFormat to map this yourself.
+                        Visual mode mapping is not by default enabled but you
+                        can do that yourself:
+>
+                        autocmd FileType clojure xmap f <Plug>CiderFormat
+<
+                        Just remeber to use mapping which doesn't conflict
+                        with e.g. change command.
+
+                                                *cider-cff*
+cff                     Format the innertmost form at the cursor.
+                        Like |fireplace-c!|
+                        Use <Plug>CiderFormatCount to map this yourself.
+
+                                                *cider-cF*
+cF                      Format the current file.
+                        Use ggcfG to map this yourself (notice to use your own
+                        |cider-cf| mapping.)
+
+ABOUT                                           *cider-about*
+
+Grab the latest version or report a bug on GitHub:
+
+http://github.com/Deraen/vim-cider
+
+ vim:tw=78:et:ft=help:norl:

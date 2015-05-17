@@ -1,4 +1,4 @@
-" fireplace-cider.vim
+" cider.vim
 " Maintainer:   Juho Teperi
 
 if exists("g:loaded_cider") || v:version < 700 || &cp
