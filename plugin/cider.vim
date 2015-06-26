@@ -89,7 +89,16 @@ endfunction
 
 nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
 
+function! s:initRefactorNrepl() abort
+  if !exists('b:refactor_nrepl_loaded') && exists('g:refactor_nrepl_options')
+    let b:refactor_nrepl_loaded = 1
+    call fireplace#message({'op': 'configure', 'opts': g:refactor_nrepl_options})
+  endif
+endfunction
+
 function! s:cleanNs() abort
+  call s:initRefactorNrepl()
+
   " FIXME: Moves cursor
 
   let p = expand('%:p')

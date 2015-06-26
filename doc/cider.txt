@@ -16,6 +16,12 @@ DOCUMENTATION                                   *cider-documentation*
                                                 *cider-no-maps*
 g:cider_no_maps         Set this option to true to disable built-in maps.
 
+                                                *refactor-nrepl-options*
+g:refactor_nrepl_options
+                        Use this option to set settings for refactor-nrepl.
+                        Check https://github.com/clojure-emacs/refactor-nrepl#configure
+                        for documentation.
+
                                                 *cider-cf*
 cf{motion}              Format the code indicated by {motion}.
                         Use <Plug>CiderFormat to map this yourself.
