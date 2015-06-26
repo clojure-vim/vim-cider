@@ -2,7 +2,7 @@
 
 Requires [fireplace.vim](https://github.com/tpope/vim-fireplace) and cider-nrepl middleware:
 ```clj
-{:user {:plugins [[cider/cider-nrepl "0.9.0-SNAPSHOT"]]}}
+{:user {:plugins [[cider/cider-nrepl "0.9.1"]]}}
 ```
 
 Cider-nrepl takes care of all other dependencies so you don't need to depend e.g. on cljfmt.
@@ -14,6 +14,8 @@ Some additional IDE-like functionality for Clojure development using
 
 - Code formatting (uses [cljfmt](https://github.com/weavejester/cljfmt))
   - `cff` (current form), `cf{motion}`, `cF` (current file)
+- Var undef / alias unmap
+  - `cdd`
 
 ## Configuration
 
