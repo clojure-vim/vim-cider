@@ -50,23 +50,13 @@ function! s:opfunc(type) abort
   endtry
 endfunction
 
-" Format operation
-function! s:formatop(type) abort
+function! s:saveRegs(fn, ...)
   let reg_save = @@
   let sel_save = &selection
   let cb_save = &clipboard
   try
     set selection=inclusive clipboard-=unnamed clipboard-=unnamedplus
-    let expr = s:opfunc(a:type)
-    " Remove additional newlines from start of expression
-    let res = fireplace#message({'op': 'format-code', 'code': substitute(expr, '^\n\+', '', '')})
-    " Remove additional spaces from start of the first line as code is
-    " already indented?
-    let formatted = substitute(get(get(res, 0), 'formatted-code'), '^ \+', '', '')
-    let @@ = formatted
-    if @@ !~# '^\n*$'
-      normal! gvp
-    endif
+    call call(a:fn, a:000)
   catch /^Clojure:/
     return ''
   finally
@@ -76,9 +66,34 @@ function! s:formatop(type) abort
   endtry
 endfunction
 
+"
+" Format operation
+"
+
+function! s:formatopImpl(type) abort
+  let expr = fireplace#opfunc(a:type)
+  " Remove additional newlines from start of expression
+  let res = fireplace#message({'op': 'format-code', 'code': substitute(expr, '^\n\+', '', '')})
+  " Remove additional spaces from start of the first line as code is
+  " already indented?
+  let formatted = substitute(get(get(res, 0), 'formatted-code'), '^ \+', '', '')
+  let @@ = formatted
+  if @@ !~# '^\n*$'
+    normal! gvp
+  endif
+endfunction
+
+function! s:formatop(type) abort
+  call s:saveRegs(function('s:formatopImpl'), a:type)
+endfunction
+
 nnoremap <silent> <Plug>CiderFormat :<C-U>set opfunc=<SID>formatop<CR>g@
 xnoremap <silent> <Plug>CiderFormat :<C-U>call <SID>formatop(visualmode())<CR>
 nnoremap <silent> <Plug>CiderCountFormat :<C-U>call <SID>formatop(v:count)<CR>
+
+"
+" Undef
+"
 
 function! s:undef() abort
   let ns = fireplace#ns()
@@ -88,6 +103,10 @@ function! s:undef() abort
 endfunction
 
 nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
+
+"
+" CleanNs
+"
 
 function! s:initRefactorNrepl() abort
   if !exists('b:refactor_nrepl_loaded') && exists('g:refactor_nrepl_options')
