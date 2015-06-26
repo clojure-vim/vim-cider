@@ -89,6 +89,33 @@ endfunction
 
 nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
 
+function! s:cleanNs() abort
+  " FIXME: Moves cursor
+
+  let p = expand('%:p')
+  normal! ggw
+
+  let [line1, col1] = searchpairpos('(', '', ')', 'bc')
+  let [line2, col2] = searchpairpos('(', '', ')', 'n')
+
+  while col1 > 1 && getline(line1)[col1-2] =~# '[#''`~@]'
+    let col1 -= 1
+  endwhile
+  call setpos("'[", [0, line1, col1, 0])
+  call setpos("']", [0, line2, col2, 0])
+
+  if expand('<cword>') ==? 'ns'
+    let res = fireplace#message({'op': 'clean-ns', 'path': p})
+    let @@ = get(res[0], 'ns')
+    " FIXME: Adds unuecessary line before and after
+    silent exe "normal! `[v`]p"
+    " FIXME: Simplify?
+    silent exe "normal! `[v`]=="
+  endif
+endfunction
+
+nnoremap <silent> <Plug>RefactorCleanNs :<C-U>call <SID>cleanNs()<CR>
+
 function! s:set_up() abort
   if get(g:, 'cider_no_maps') | return | endif
 
@@ -97,6 +124,8 @@ function! s:set_up() abort
   nmap <buffer> cF ggcfG
 
   nmap <buffer> cdd <Plug>CiderUndef
+
+  nmap <buffer> <F4> <Plug>RefactorCleanNs
 endfunction
 
 augroup cider_eval
