@@ -43,6 +43,13 @@ cF                      Format the current file.
                         Use ggcfG to map this yourself (notice to use your own
                         |cider-cf| mapping.)
 
+                                                *cider-cdd*
+cdd                     Undefine a variable or unalias namespace a alias
+                        defined by a symbol under the cursor.
+
+                                                *cider-F4*
+F4                      Clean the namespace form of current file.
+
 ABOUT                                           *cider-about*
 
 Grab the latest version or report a bug on GitHub:
