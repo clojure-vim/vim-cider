@@ -16,6 +16,8 @@ Some additional IDE-like functionality for Clojure development using
   - `cff` (current form), `cf{motion}`, `cF` (current file)
 - Var undef / alias unmap
   - `cdd`
+- Clean ns (eliminate `:use`, sort, remove unused stuff and duplication)
+  - `<F4>`
 
 ## Configuration
 
@@ -32,7 +34,6 @@ autocmd FileType clojure xmap <buffer> f <Plug>CiderFormat
 - Cider-nrepl
   - Test utilities
   - Code reloading
-  - Undefine var
   - Inspecting, tracing, debugging?
 - Refactor-nrepl (https://github.com/clojure-emacs/refactor-nrepl)
   - Rename symbol
