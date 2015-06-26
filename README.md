@@ -8,8 +8,8 @@ Some additional IDE-like functionality for Clojure development using
 Requires [fireplace.vim](https://github.com/tpope/vim-fireplace), cider-nrepl
 and refactor-nrepl middlewares:
 
-[![https://img.shields.io/clojars/v/cider/cider-nrepl.svg]](http://clojars.org/cider/cider-nrepl)
-[![https://img.shields.io/clojars/v/refactor-nrepl.svg]](http://clojars.org/refactor-nrepl/refactor-nrepl)
+[![Cider-nrepl](https://img.shields.io/clojars/v/cider/cider-nrepl.svg)](http://clojars.org/cider/cider-nrepl)
+[![Refactor-nrepl](https://img.shields.io/clojars/v/refactor-nrepl.svg)](http://clojars.org/refactor-nrepl/refactor-nrepl)
 
 ### Leiningen
 
