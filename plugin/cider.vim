@@ -80,12 +80,23 @@ nnoremap <silent> <Plug>CiderFormat :<C-U>set opfunc=<SID>formatop<CR>g@
 xnoremap <silent> <Plug>CiderFormat :<C-U>call <SID>formatop(visualmode())<CR>
 nnoremap <silent> <Plug>CiderCountFormat :<C-U>call <SID>formatop(v:count)<CR>
 
+function! s:undef() abort
+  let ns = fireplace#ns()
+  let s = expand('<cword>')
+  let res = fireplace#message({'op': 'undef', 'ns': ns, 'symbol': s})
+  echo 'Undef ' . ns . '/' . s
+endfunction
+
+nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
+
 function! s:set_up() abort
   if get(g:, 'cider_no_maps') | return | endif
 
   nmap <buffer> cf <Plug>CiderFormat
   nmap <buffer> cff <Plug>CiderCountFormat
   nmap <buffer> cF ggcfG
+
+  nmap <buffer> cdd <Plug>CiderUndef
 endfunction
 
 augroup cider_eval
