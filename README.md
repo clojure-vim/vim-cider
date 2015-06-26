@@ -41,6 +41,7 @@ e.g. on cljfmt.
   - `cdd`
 - Clean ns (eliminate `:use`, sort, remove unused stuff and duplication)
   - `<F4>`
+  - **FIXME**: Adds unnecessary lines
 
 ## Configuration
 
