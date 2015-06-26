@@ -1,14 +1,37 @@
 # cider.vim
 
-Requires [fireplace.vim](https://github.com/tpope/vim-fireplace) and cider-nrepl middleware:
-```clj
-{:user {:plugins [[cider/cider-nrepl "0.9.1"]]}}
-```
-
-Cider-nrepl takes care of all other dependencies so you don't need to depend e.g. on cljfmt.
-
 Some additional IDE-like functionality for Clojure development using
 [cider-nrepl](https://github.com/clojure-emacs/cider-nrepl).
+
+## Using
+
+Requires [fireplace.vim](https://github.com/tpope/vim-fireplace), cider-nrepl
+and refactor-nrepl middlewares:
+
+https://img.shields.io/clojars/v/clojure-emacs/cider-nrepl.svg
+https://img.shields.io/clojars/v/refactor-nrepl.svg
+
+### Leiningen
+
+```clj
+{:user {:plugins [[cider/cider-nrepl "0.9.1"]
+                  [refactor-nrepl "1.0.5"]]}}
+```
+
+### Boot
+
+```clj
+(swap! boot.repl/*default-dependencies*
+       concat '[[cider/cider-nrepl "0.9.1"]
+                [refactor-nrepl "1.0.5"])
+
+(swap! boot.repl/*default-middleware* conj
+       'cider.nrepl/cider-middleware
+       'refactor-nrepl.middleware/wrap-refactor)
+```
+
+Cider-nrepl takes care of all other dependencies so you don't need to depend
+e.g. on cljfmt.
 
 ## Features
 
