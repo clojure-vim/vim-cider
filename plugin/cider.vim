@@ -109,15 +109,13 @@ nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
 "
 
 function! s:init_refactor_nrepl() abort
-  if !exists('b:refactor_nrepl_loaded') && exists('g:refactor_nrepl_options')
-    let b:refactor_nrepl_loaded = 1
-    call fireplace#message({'op': 'configure', 'opts': g:refactor_nrepl_options})
+  if exists('g:refactor_nrepl_options')
+    let client = g:fireplace_post_connect_session
+    call client.message({'op': 'configure', 'opts': g:refactor_nrepl_options}, client)
   endif
 endfunction
 
 function! s:clean_ns() abort
-  call s:initRefactorNrepl()
-
   " FIXME: Moves cursor
 
   let p = expand('%:p')
@@ -159,4 +157,8 @@ endfunction
 augroup cider_eval
   autocmd!
   autocmd FileType clojure call s:set_up()
+augroup END
+
+augroup refactor_nrepl_configure
+  autocmd User FireplacePostConnect call s:init_refactor_nrepl()
 augroup END
