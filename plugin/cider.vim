@@ -6,49 +6,9 @@ if exists("g:loaded_cider") || v:version < 700 || &cp
 endif
 let g:loaded_cider = 1
 
-" FIXME: From fireplace
-function! s:opfunc(type) abort
-  let sel_save = &selection
-  let cb_save = &clipboard
-  let reg_save = @@
-  try
-    set selection=inclusive clipboard-=unnamed clipboard-=unnamedplus
-    if type(a:type) == type(0)
-      let open = '[[{(]'
-      let close = '[]})]'
-      if getline('.')[col('.')-1] =~# close
-        let [line1, col1] = searchpairpos(open, '', close, 'bn', g:fireplace#skip)
-        let [line2, col2] = [line('.'), col('.')]
-      else
-        let [line1, col1] = searchpairpos(open, '', close, 'bcn', g:fireplace#skip)
-        let [line2, col2] = searchpairpos(open, '', close, 'n', g:fireplace#skip)
-      endif
-      while col1 > 1 && getline(line1)[col1-2] =~# '[#''`~@]'
-        let col1 -= 1
-      endwhile
-      call setpos("'[", [0, line1, col1, 0])
-      call setpos("']", [0, line2, col2, 0])
-      silent exe "normal! `[v`]y"
-    elseif a:type =~# '^.$'
-      silent exe "normal! `<" . a:type . "`>y"
-    elseif a:type ==# 'line'
-      silent exe "normal! '[V']y"
-    elseif a:type ==# 'block'
-      silent exe "normal! `[\<C-V>`]y"
-    elseif a:type ==# 'outer'
-      call searchpair('(','',')', 'Wbcr', g:fireplace#skip)
-      silent exe "normal! vaby"
-    else
-      silent exe "normal! `[v`]y"
-    endif
-    redraw
-    return repeat("\n", line("'<")-1) . repeat(" ", col("'<")-1) . @@
-  finally
-    let @@ = reg_save
-    let &selection = sel_save
-    let &clipboard = cb_save
-  endtry
-endfunction
+"
+" Utils
+"
 
 function! s:save_regs(fn, ...)
   let reg_save = @@
