@@ -50,7 +50,7 @@ function! s:opfunc(type) abort
   endtry
 endfunction
 
-function! s:saveRegs(fn, ...)
+function! s:save_regs(fn, ...)
   let reg_save = @@
   let sel_save = &selection
   let cb_save = &clipboard
@@ -70,7 +70,7 @@ endfunction
 " Format operation
 "
 
-function! s:formatopImpl(type) abort
+function! s:formatop_impl(type) abort
   let expr = fireplace#opfunc(a:type)
   " Remove additional newlines from start of expression
   let res = fireplace#message({'op': 'format-code', 'code': substitute(expr, '^\n\+', '', '')})
@@ -84,7 +84,7 @@ function! s:formatopImpl(type) abort
 endfunction
 
 function! s:formatop(type) abort
-  call s:saveRegs(function('s:formatopImpl'), a:type)
+  call s:save_regs(function('s:formatop_impl'), a:type)
 endfunction
 
 nnoremap <silent> <Plug>CiderFormat :<C-U>set opfunc=<SID>formatop<CR>g@
@@ -108,14 +108,14 @@ nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
 " CleanNs
 "
 
-function! s:initRefactorNrepl() abort
+function! s:init_refactor_nrepl() abort
   if !exists('b:refactor_nrepl_loaded') && exists('g:refactor_nrepl_options')
     let b:refactor_nrepl_loaded = 1
     call fireplace#message({'op': 'configure', 'opts': g:refactor_nrepl_options})
   endif
 endfunction
 
-function! s:cleanNs() abort
+function! s:clean_ns() abort
   call s:initRefactorNrepl()
 
   " FIXME: Moves cursor
@@ -142,7 +142,7 @@ function! s:cleanNs() abort
   endif
 endfunction
 
-nnoremap <silent> <Plug>RefactorCleanNs :<C-U>call <SID>cleanNs()<CR>
+nnoremap <silent> <Plug>RefactorCleanNs :<C-U>call <SID>clean_ns()<CR>
 
 function! s:set_up() abort
   if get(g:, 'cider_no_maps') | return | endif
