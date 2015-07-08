@@ -71,7 +71,7 @@ endfunction
 "
 
 function! s:formatop_impl(type) abort
-  let expr = fireplace#opfunc(a:type)
+  let expr = s:opfunc(a:type)
   " Remove additional newlines from start of expression
   let res = fireplace#message({'op': 'format-code', 'code': substitute(expr, '^\n\+', '', '')})
   " Remove additional spaces from start of the first line as code is
@@ -116,7 +116,7 @@ function! s:init_refactor_nrepl() abort
 endfunction
 
 function! s:clean_ns() abort
-  call s:initRefactorNrepl()
+  call s:init_refactor_nrepl()
 
   " FIXME: Moves cursor
 
