@@ -32,13 +32,16 @@ e.g. on cljfmt.
 ## Features
 
 - Code formatting (uses [cljfmt][cljfmt])
-  - `cff` (current form), `cf{motion}`, `cF` (current file), `<Plug>CiderFormat`
+  - `cff` (current form), `cf{motion}`, `cF` (current file)
 - Var undef / alias unmap
   - `cdd`
 - Clean ns (eliminate `:use`, sort, remove unused stuff and duplication)
   - `<F4>`
 
 ## Configuration
+
+If you do not like the default bindings, you can disable them and create your
+own. Check the implementation file for `<Plug>` bindings.
 
 ```vim
 let g:cider_no_maps=1 " Disable built-in mappings
