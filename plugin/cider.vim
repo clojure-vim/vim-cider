@@ -115,6 +115,15 @@ function! s:init_refactor_nrepl() abort
   endif
 endfunction
 
+function! s:paste(text) abort
+  " Does charwise paste to current '[ and '] marks
+  let @@ = a:text
+  let reg_type = getregtype('@@')
+  call setreg('@@', getreg('@@'), 'v')
+  silent exe "normal! `[v`]p"
+  call setreg('@@', getreg('@@'), reg_type)"
+endfunction
+
 function! s:clean_ns() abort
   call s:init_refactor_nrepl()
 
@@ -134,10 +143,7 @@ function! s:clean_ns() abort
 
   if expand('<cword>') ==? 'ns'
     let res = fireplace#message({'op': 'clean-ns', 'path': p})
-    let @@ = get(res[0], 'ns')
-    " FIXME: Adds unuecessary line before and after
-    silent exe "normal! `[v`]p"
-    " FIXME: Simplify?
+    call s:paste(substitute(get(res[0], 'ns'), '\n$', '', ''))
     silent exe "normal! `[v`]=="
   endif
 endfunction
