@@ -1,29 +1,25 @@
 # cider.vim
 
-Some additional IDE-like functionality for Clojure development using
-[cider-nrepl](https://github.com/clojure-emacs/cider-nrepl).
+Some additional IDE-like functionality for Clojure development on Vim using
+[cider-nrepl][cider-nrepl] and
+[refactor-nrepl][refactor-nrepl].
 
 ## Using
 
-Requires [fireplace.vim](https://github.com/tpope/vim-fireplace), cider-nrepl
+Requires [fireplace.vim][vim-fireplace], cider-nrepl
 and refactor-nrepl middlewares:
 
-[![Cider-nrepl](https://img.shields.io/clojars/v/cider/cider-nrepl.svg)](http://clojars.org/cider/cider-nrepl)
-[![Refactor-nrepl](https://img.shields.io/clojars/v/refactor-nrepl.svg)](http://clojars.org/refactor-nrepl/refactor-nrepl)
-
-### Leiningen
-
+**Leiningen**, `~/.lein/profiles.clj`
 ```clj
 {:user {:plugins [[cider/cider-nrepl "0.9.1"]
-                  [refactor-nrepl "1.0.5"]]}}
+                  [refactor-nrepl "1.1.0"]]}}
 ```
 
-### Boot
-
+**Boot**, `~/.boot/profiles.boot`
 ```clj
 (swap! boot.repl/*default-dependencies*
        concat '[[cider/cider-nrepl "0.9.1"]
-                [refactor-nrepl "1.0.5"])
+                [refactor-nrepl "1.1.0"])
 
 (swap! boot.repl/*default-middleware* conj
        'cider.nrepl/cider-middleware
@@ -35,13 +31,12 @@ e.g. on cljfmt.
 
 ## Features
 
-- Code formatting (uses [cljfmt](https://github.com/weavejester/cljfmt))
-  - `cff` (current form), `cf{motion}`, `cF` (current file)
+- Code formatting (uses [cljfmt][cljfmt])
+  - `cff` (current form), `cf{motion}`, `cF` (current file), `<Plug>CiderFormat`
 - Var undef / alias unmap
   - `cdd`
 - Clean ns (eliminate `:use`, sort, remove unused stuff and duplication)
   - `<F4>`
-  - **FIXME**: Adds unnecessary lines
 
 ## Configuration
 
@@ -59,7 +54,7 @@ autocmd FileType clojure xmap <buffer> f <Plug>CiderFormat
   - Test utilities
   - Code reloading
   - Inspecting, tracing, debugging?
-- Refactor-nrepl (https://github.com/clojure-emacs/refactor-nrepl)
+- Refactor-nrepl
   - Rename symbol
   - Resolve-missing
 
@@ -68,3 +63,8 @@ autocmd FileType clojure xmap <buffer> f <Plug>CiderFormat
 Copyright (C) 2015 Juho Teperi
 
 Distributed under the MIT License.
+
+[vim-fireplace]: https://github.com/tpope/vim-fireplace
+[cider-nrepl]: https://github.com/clojure-emacs/cider-nrepl
+[refactor-nrepl]: https://github.com/clojure-emacs/refactor-nrepl
+[cljfmt]: https://github.com/weavejester/cljfmt
