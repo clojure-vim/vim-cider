@@ -142,9 +142,14 @@ function! s:clean_ns() abort
   call setpos("']", [0, line2, col2, 0])
 
   if expand('<cword>') ==? 'ns'
-    let res = fireplace#message({'op': 'clean-ns', 'path': p})
-    call s:paste(substitute(get(res[0], 'ns'), '\n$', '', ''))
-    silent exe "normal! `[v`]=="
+    let res = fireplace#message({'op': 'clean-ns', 'path': p})[0]
+    let error = get(res, 'error')
+    if !empty(error)
+      throw error
+    else
+      call s:paste(substitute(res.ns, '\n$', '', ''))
+      silent exe "normal! `[v`]=="
+    endif
   endif
 endfunction
 
