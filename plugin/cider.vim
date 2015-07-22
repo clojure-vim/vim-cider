@@ -149,9 +149,12 @@ function! s:clean_ns() abort
     let error = get(res, 'error')
     if !empty(error)
       throw error
-    else
+    elseif type(res.ns) == type("")
       call s:paste(substitute(res.ns, '\n$', '', ''))
       silent exe "normal! `[v`]=="
+      echo "Ns form cleaned"
+    else
+      echo "Ns form already clean"
     endif
   endif
 endfunction
