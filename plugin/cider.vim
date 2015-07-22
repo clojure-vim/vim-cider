@@ -96,8 +96,13 @@ nnoremap <silent> <Plug>CiderCountFormat :<C-U>call <SID>formatop(v:count)<CR>
 function! s:undef() abort
   let ns = fireplace#ns()
   let s = expand('<cword>')
-  let res = fireplace#message({'op': 'undef', 'ns': ns, 'symbol': s})
-  echo 'Undef ' . ns . '/' . s
+  let res = fireplace#message({'op': 'undef', 'ns': ns, 'symbol': s})[0]
+  let error = get(res, 'err')
+  if !empty(error)
+    throw error
+  else
+    echo 'Undefined ' . s
+  endif
 endfunction
 
 nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
