@@ -161,6 +161,23 @@ endfunction
 
 nnoremap <silent> <Plug>RefactorCleanNs :<C-U>call <SID>clean_ns()<CR>
 
+function! s:resolve_missing() abort
+  call s:init_refactor_nrepl()
+
+  let sym = expand('<cword>')
+  let res = fireplace#message({'op': 'resolve-missing', 'symbol': sym})
+  let choices = fireplace#evalparse('(quote ' . res[0].candidates . ')')
+
+  call inputsave()
+  let x = inputlist(["Select: "] + map(choices, '(v:key+ 1) . ". " . v:val[0]'))
+  call inputrestore()
+  echo choices[x - 1]
+
+  " TODO: Insert choice to :require form
+endfunction
+
+nnoremap <silent> <Plug>RefactorResolveMissing :<C-U>call <SID>resolve_missing()<CR>
+
 function! s:set_up() abort
   if get(g:, 'cider_no_maps') | return | endif
 
@@ -169,8 +186,9 @@ function! s:set_up() abort
   nmap <buffer> cF ggcfG
 
   nmap <buffer> cdd <Plug>CiderUndef
-
   nmap <buffer> <F4> <Plug>RefactorCleanNs
+  " FIXME: Find better binding
+  nmap <buffer> cRR <Plug>RefactorResolveMissing
 endfunction
 
 augroup cider_eval
