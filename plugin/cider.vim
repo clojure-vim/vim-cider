@@ -189,9 +189,13 @@ function! s:resolve_missing() abort
   call inputsave()
   let x = inputlist(["Select: "] + map(copy(choices), '(v:key+ 1) . ". " . v:val[0]'))
   call inputrestore()
-  echo '[' . choices[x - 1][0] . ' :as ' . alias . ']'
+  let @@ = "[" . choices[x - 1][0] . " :as " . alias . "]"
 
-  " TODO: Insert choice to :require form
+  " Insert as last entry in :require list
+  normal gg
+  if search('(:require', 'W') !=# 0
+    execute "normal! %i\<CR>\<esc>p"
+  endif
 endfunction
 
 nnoremap <silent> <Plug>RefactorResolveMissing :<C-U>call <SID>resolve_missing()<CR>
