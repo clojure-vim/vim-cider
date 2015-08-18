@@ -161,17 +161,35 @@ endfunction
 
 nnoremap <silent> <Plug>RefactorCleanNs :<C-U>call <SID>clean_ns()<CR>
 
+function! s:split_symbol(sym) abort
+  if a:sym =~ '\/'
+    return split(a:sym, '\/')
+  elseif a:sym =~ '\.'
+    let parts = split(a:sym, '\.')
+    return [join(parts[0:-1], '.'), parts[-1]]
+  else
+    return [0, a:sym]
+  endif
+endfunction
+
+" echom scriptease#dump(s:split_symbol('java.util.Date'))
+" echom scriptease#dump(s:split_symbol('Date'))
+" echom scriptease#dump(s:split_symbol('clojure.string/split'))
+" echom scriptease#dump(s:split_symbol('str/split'))
+
 function! s:resolve_missing() abort
+  " TODO: Check indices
+
   call s:init_refactor_nrepl()
 
-  let sym = expand('<cword>')
+  let [alias, sym] = s:split_symbol(expand('<cword>'))
   let res = fireplace#message({'op': 'resolve-missing', 'symbol': sym})
   let choices = fireplace#evalparse('(quote ' . res[0].candidates . ')')
 
   call inputsave()
-  let x = inputlist(["Select: "] + map(choices, '(v:key+ 1) . ". " . v:val[0]'))
+  let x = inputlist(["Select: "] + map(copy(choices), '(v:key+ 1) . ". " . v:val[0]'))
   call inputrestore()
-  echo choices[x - 1]
+  echo '[' . choices[x - 1][0] . ' :as ' . alias . ']'
 
   " TODO: Insert choice to :require form
 endfunction
