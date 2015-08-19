@@ -186,6 +186,8 @@ function! s:resolve_missing() abort
   let res = fireplace#message({'op': 'resolve-missing', 'symbol': sym})
   let choices = fireplace#evalparse('(quote ' . res[0].candidates . ')')
 
+  " TODO: Investigate using something prettier? Check how CtrlP is
+  " implemented.
   call inputsave()
   let x = inputlist(["Select: "] + map(copy(choices), '(v:key+ 1) . ". " . v:val[0]'))
   call inputrestore()
@@ -200,6 +202,37 @@ endfunction
 
 nnoremap <silent> <Plug>RefactorResolveMissing :<C-U>call <SID>resolve_missing()<CR>
 
+function! s:kwpairs_to_dict(x) abort
+  let m = {}
+  for i in range(0, len(a:x) - 2, 2)
+    let m[a:x[i]] = a:x[i + 1]
+  endfor
+  return m
+endfunction
+
+" echom scriptease#dump(s:kwpairs_to_dict(['a', 5]))
+" echom scriptease#dump(s:kwpairs_to_dict(['a', 5, 'b', 3]))
+
+function! s:find_symbol() abort
+  let sym = expand('<cword>')
+  let meta = fireplace#info(sym)
+  " echom scriptease#dump(meta)
+  let [bufnum, lnum, col, off] = getpos('.')
+  let filepath = expand('%:p')
+  let res = fireplace#message({'op': 'find-symbol', 'dir': '.', 'file': filepath, 'ns': meta.ns, 'name': meta.name, 'line': lnum, 'column': col, 'serialization-format': 'bencode'})
+
+  call filter(res, 'has_key(v:val, "occurrence")')
+  call map(res, 's:kwpairs_to_dict(v:val.occurrence)')
+  call map(res, 'v:val["file"] . ":" . v:val["line-beg"] . ":" . v:val["col-beg"] . ":" . v:val["match"]')
+
+  " TODO: Investigate using something more like CtrlP
+
+  cgetexpr res
+  copen
+endfunction
+
+nnoremap <silent> <Plug>RefactorFindSymbol :<C-U>call <SID>find_symbol()<CR>
+
 function! s:set_up() abort
   if get(g:, 'cider_no_maps') | return | endif
 
@@ -211,6 +244,7 @@ function! s:set_up() abort
   nmap <buffer> <F4> <Plug>RefactorCleanNs
   " FIXME: Find better binding
   nmap <buffer> cRR <Plug>RefactorResolveMissing
+  nmap <buffer> <F5> <Plug>RefactorFindSymbol
 endfunction
 
 augroup cider_eval
