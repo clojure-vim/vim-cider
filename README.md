@@ -46,6 +46,9 @@ own. Check the implementation file for `<Plug>` bindings.
 ```vim
 let g:cider_no_maps=1 " Disable built-in mappings
 
+" Set refactor-nrepl options, e.g. tell clean-ns to not use prefix forms
+let g:refactor_nrepl_options = '{:prefix-rewriting false}'
+
 " Setup visualmode bindings yourself, to some keys which don't interact
 " with e.g. change command
 autocmd FileType clojure xmap <buffer> f <Plug>CiderFormat
