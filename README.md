@@ -15,7 +15,7 @@ and refactor-nrepl middlewares:
                   [refactor-nrepl "1.1.0"]]}}
 ```
 
-**Boot**, `~/.boot/profiles.boot`
+**Boot**, `~/.boot/profile.boot`
 ```clj
 (swap! boot.repl/*default-dependencies*
        concat '[[cider/cider-nrepl "0.9.1"]
