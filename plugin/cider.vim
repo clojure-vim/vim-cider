@@ -236,9 +236,9 @@ nnoremap <silent> <Plug>RefactorFindSymbol :<C-U>call <SID>find_symbol()<CR>
 function! s:set_up() abort
   if get(g:, 'cider_no_maps') | return | endif
 
-  nmap <buffer> cf <Plug>CiderFormat
-  nmap <buffer> cff <Plug>CiderCountFormat
-  nmap <buffer> cF ggcfG
+  nmap <buffer> =f <Plug>CiderFormat
+  nmap <buffer> =ff <Plug>CiderCountFormat
+  nmap <buffer> =F ggcfG
 
   nmap <buffer> cdd <Plug>CiderUndef
   nmap <buffer> <F4> <Plug>RefactorCleanNs
