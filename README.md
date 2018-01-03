@@ -37,6 +37,9 @@ e.g. on cljfmt.
   - `cdd`
 - Clean ns (eliminate `:use`, sort, remove unused stuff and duplication)
   - `<F4>`
+- Resolve missing
+  - `cRR` (TODO: Find better binding)
+  - `<F5>`: `findSymbol` (TODO: Find better binding)
 
 ## Configuration
 
@@ -62,11 +65,10 @@ autocmd FileType clojure xmap <buffer> f <Plug>CiderFormat
   - Inspecting, tracing, debugging?
 - Refactor-nrepl
   - Rename symbol
-  - Resolve-missing
 
 # License
 
-Copyright (C) 2015 Juho Teperi
+Copyright (C) 2015-2017 Juho Teperi
 
 Distributed under the MIT License.
 
