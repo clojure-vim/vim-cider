@@ -32,7 +32,7 @@ e.g. on cljfmt.
 ## Features
 
 - Code formatting (uses [cljfmt][cljfmt])
-  - `cff` (current form), `cf{motion}`, `cF` (current file)
+  - `=ff` (current form), `=f{motion}`, `=F` (current file)
 - Var undef / alias unmap
   - `cdd`
 - Clean ns (eliminate `:use`, sort, remove unused stuff and duplication)
