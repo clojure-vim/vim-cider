@@ -238,7 +238,7 @@ function! s:set_up() abort
 
   nmap <buffer> =f <Plug>CiderFormat
   nmap <buffer> =ff <Plug>CiderCountFormat
-  nmap <buffer> =F ggcfG
+  nmap <buffer> =F gg=fG
 
   nmap <buffer> cdd <Plug>CiderUndef
   nmap <buffer> <F4> <Plug>RefactorCleanNs
