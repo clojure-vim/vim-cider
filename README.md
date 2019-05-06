@@ -49,8 +49,9 @@ own. Check the implementation file for `<Plug>` bindings.
 ```vim
 let g:cider_no_maps=1 " Disable built-in mappings
 
-" Set refactor-nrepl options, e.g. tell clean-ns to not use prefix forms
-let g:refactor_nrepl_options = '{:prefix-rewriting false}'
+" Set refactor-nrepl options 
+let g:refactor_nrepl_prefix_rewriting = 0  " tell clean-ns to not use prefix forms
+let g:refactor_nrepl_prune_ns_form = 0     " ... and don't remove unused symbols
 
 " Setup visualmode bindings yourself, to some keys which don't interact
 " with e.g. change command

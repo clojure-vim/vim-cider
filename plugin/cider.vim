@@ -111,13 +111,6 @@ nnoremap <silent> <Plug>CiderUndef :<C-U>call <SID>undef()<CR>
 " CleanNs
 "
 
-function! s:init_refactor_nrepl() abort
-  if !exists('b:refactor_nrepl_loaded') && exists('g:refactor_nrepl_options')
-    let b:refactor_nrepl_loaded = 1
-    call fireplace#message({'op': 'configure', 'opts': g:refactor_nrepl_options})
-  endif
-endfunction
-
 function! s:paste(text) abort
   " Does charwise paste to current '[ and '] marks
   let @@ = a:text
@@ -128,8 +121,6 @@ function! s:paste(text) abort
 endfunction
 
 function! s:clean_ns() abort
-  call s:init_refactor_nrepl()
-
   " FIXME: Moves cursor
 
   let p = expand('%:p')
@@ -145,7 +136,17 @@ function! s:clean_ns() abort
   call setpos("']", [0, line2, col2, 0])
 
   if expand('<cword>') ==? 'ns'
-    let res = fireplace#message({'op': 'clean-ns', 'path': p})[0]
+	let opts = { 'op': 'clean-ns', 'path': p }
+
+	if exists('g:refactor_nrepl_prune_ns_form')
+		let opts['prune-ns-form'] = g:refactor_nrepl_prune_ns_form ? 'true' : 'false'
+	endif
+
+	if exists('g:refactor_nrepl_prefix_rewriting')
+		let opts['prefix-rewriting'] = g:refactor_nrepl_prefix_rewriting ? 'true' : 'false'
+	endif
+
+	let res = fireplace#message(opts)[0]
     let error = get(res, 'error')
     if !empty(error)
       throw error
