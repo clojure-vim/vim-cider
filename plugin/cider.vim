@@ -136,15 +136,10 @@ function! s:clean_ns() abort
   call setpos("']", [0, line2, col2, 0])
 
   if expand('<cword>') ==? 'ns'
-	let opts = { 'op': 'clean-ns', 'path': p }
+    let opts = { 'op': 'clean-ns', 'path': p }
+    call extend(opts, get(g:, 'refactor_nrepl_options', {}))
 
-	if exists('g:refactor_nrepl_options')
-		for [opt_k, opt_v] in items(g:refactor_nrepl_options)
-			let opts[opt_k] = opt_v
-		endfor
-	endif
-
-	let res = fireplace#message(opts)[0]
+    let res = fireplace#message(opts)[0]
     let error = get(res, 'error')
     if !empty(error)
       throw error
