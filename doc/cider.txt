@@ -16,18 +16,10 @@ DOCUMENTATION                                   *cider-documentation*
                                                 *cider-no-maps*
 g:cider_no_maps         Set this option to true to disable built-in maps.
 
-                                                *refactor-nrepl-prune-ns-form*
-g:refactor_nrepl_prune_ns_form
-                        Use this option to set the prune-ns-form option for
-						refactor-nrepl. Check
-						https://github.com/clojure-emacs/refactor-nrepl#configure
-                        for documentation.
-
-                                                *refactor-nrepl-prefix-rewriting*
-g:refactor_nrepl_prefix_rewriting
-                        Use this option to set the prefix-rewriting option for
-						refactor-nrepl. Check
-						https://github.com/clojure-emacs/refactor-nrepl#configure
+                                                *refactor-nrepl-options*
+g:refactor_nrepl_options
+						Use this option to set settings for refactor-nrepl.
+						Check https://github.com/clojure-emacs/refactor-nrepl#configure
                         for documentation.
 
                                                 *cider-=f*

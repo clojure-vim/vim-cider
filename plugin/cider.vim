@@ -138,12 +138,10 @@ function! s:clean_ns() abort
   if expand('<cword>') ==? 'ns'
 	let opts = { 'op': 'clean-ns', 'path': p }
 
-	if exists('g:refactor_nrepl_prune_ns_form')
-		let opts['prune-ns-form'] = g:refactor_nrepl_prune_ns_form ? 'true' : 'false'
-	endif
-
-	if exists('g:refactor_nrepl_prefix_rewriting')
-		let opts['prefix-rewriting'] = g:refactor_nrepl_prefix_rewriting ? 'true' : 'false'
+	if exists('g:refactor_nrepl_options')
+		for [opt_k, opt_v] in items(g:refactor_nrepl_options)
+			let opts[opt_k] = opt_v
+		endfor
 	endif
 
 	let res = fireplace#message(opts)[0]
