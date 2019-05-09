@@ -18,12 +18,12 @@ g:cider_no_maps         Set this option to true to disable built-in maps.
 
                                                 *refactor-nrepl-options*
 g:refactor_nrepl_options
-                        Use this option to set settings for refactor-nrepl.
-                        Check https://github.com/clojure-emacs/refactor-nrepl#configure
+						Use this option to set settings for refactor-nrepl.
+						Check https://github.com/clojure-emacs/refactor-nrepl#configure
                         for documentation.
 
-                                                *cider-cf*
-cf{motion}              Format the code indicated by {motion}.
+                                                *cider-=f*
+=f{motion}              Format the code indicated by {motion}.
                         Use <Plug>CiderFormat to map this yourself.
                         Visual mode mapping is not by default enabled but you
                         can do that yourself:
@@ -33,15 +33,15 @@ cf{motion}              Format the code indicated by {motion}.
                         Just remeber to use mapping which doesn't conflict
                         with e.g. change command.
 
-                                                *cider-cff*
-cff                     Format the innertmost form at the cursor.
+                                                *cider-=ff*
+=ff                     Format the innertmost form at the cursor.
                         Like |fireplace-c!|
                         Use <Plug>CiderFormatCount to map this yourself.
 
-                                                *cider-cF*
-cF                      Format the current file.
-                        Use ggcfG to map this yourself (notice to use your own
-                        |cider-cf| mapping.)
+                                                *cider-=F*
+=F                      Format the current file.
+                        Use gg=fG to map this yourself (notice to use your own
+                        |cider-=f| mapping.)
 
                                                 *cider-cdd*
 cdd                     Undefine a variable or unalias namespace a alias
